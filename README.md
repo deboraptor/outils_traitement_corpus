@@ -37,3 +37,5 @@ On voit bien qu'il y a le message sous forme de chaînes de caractères et la cl
 
 ### À moi de jouer ! 
 Comme les données sont en anglais, je vais donc aussi récupérer des données en anglais ou alors chercher plus tard pour le faire en français.
+
+J'aimerais bien le faire avec plusieurs classes de différents acteurs ou chanteurs, comme ça on pourrait voir lesquels sont les plus appréciés ou pas.
