@@ -36,6 +36,8 @@ Voici un exemple de comment ça fonctionne.
 On voit bien qu'il y a le message sous forme de chaînes de caractères et la classification de l'émotion sous forme de chiffre de 0 à 5 comme on l'avait vu au-dessus. 
 
 ### À moi de jouer ! 
-Comme les données sont en anglais, je vais donc aussi récupérer des données en anglais ou alors chercher plus tard pour le faire en français.
+Je vais récolter les données en français ! 
 
+__Idées :__
+<br>
 J'aimerais bien le faire avec plusieurs classes de différents acteurs ou chanteurs, comme ça on pourrait voir lesquels sont les plus appréciés ou pas.
