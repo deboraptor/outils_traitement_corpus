@@ -41,3 +41,13 @@ Je vais récolter les données en français !
 __Idées :__
 <br>
 J'aimerais bien le faire avec plusieurs classes de différents acteurs ou chanteurs, comme ça on pourrait voir lesquels sont les plus appréciés ou pas.
+Edit : et pourquoi pas regarder chaque commentaire et comparer le sentiment "moyen" de chaque post en fonction du titre et en porter des conclusions grâce à l'analyse de sentiments (?)
+Threads n’a pas d’API publique, donc j’ai décidé d’utiliser `ScrapFly` pour parser le site. Comme je ne pouvais pas utiliser `playwright` dans mon Jupyter Notebook, je suis passé sur un fichier python classique. 
+
+Un problème s’est alors posé devant moi : quels commentaires je prends ? Comme je ne peux pas parser tout le site sans le faire planter ou me faire bannir, je dois fixer des limites. J’ai le choix de prendre le dernier username et parser son profil entier (peut-être fixer une limite de commentaires ?) ou de parser un commentaire et d’obtenir toutes les réponses qu’il a eu. 
+
+Objectifs pour la prochaine fois : 
+- [ ] récupérer le dernier commentaire posté
+- [ ] augmenter la portée aux derniers 25 commentaires postés max
+- [ ] récupérer toutes les réponses de ces commentaires
+- [ ] commencer le nettoyage des données
