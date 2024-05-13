@@ -1,65 +1,108 @@
- 
 import json
-from typing import Dict
-
+import re
 import jmespath
+
+from typing import Dict
 from parsel import Selector
 from nested_lookup import nested_lookup
 from playwright.sync_api import sync_playwright
 
 
-def parse_thread(data: Dict) -> Dict:
-    """Parse Threads JSON dataset for the most important fields. """
+def parse_thread(donnee: Dict) -> Dict:
+    """
+    Extrait le texte du post Thread à partir d'un dictionnaire de données JSON.
 
-    result = jmespath.search(
+    Args:
+        donnee (Dict): Dictionnaire de données JSON contenant les informations sur le post Thread.
+
+    Returns:
+        Dict: Dictionnaire contenant le texte du post Thread.
+    """
+
+    resultat = jmespath.search(
         """{
-        text: post.caption.text,
-        # username: post.user.username
+        text: post.caption.text
     }""",
-        data,
+        donnee,
     )
-    return result
+    return resultat
 
 
-def scrape_thread(url: str) -> dict:
-    """Scrape Threads post and replies from a given URL. """
+def scrape_thread(url: str, max_pages: int) -> dict:
+    """
+    Scrape les données d'un thread Threads à partir de son URL et jusqu'à un nombre maximal de pages.
 
-    with sync_playwright() as pw:
-        # start Playwright browser
-        browser = pw.firefox.launch()
-        context = browser.new_context(viewport={"width": 1920, "height": 1080})
-        page = context.new_page()
+    Args:
+        url (str): L'URL du thread Threads à scraper.
+        max_pages (int): Le nombre maximal de pages à scraper pour ce thread.
 
-        # go to url and wait for the page to load
-        page.goto(url)
-        # wait for page to finish loading
-        page.wait_for_selector("[data-pressable-container=true]")
-        # find all hidden datasets
-        selector = Selector(page.content())
-        hidden_datasets = selector.css('script[type="application/json"][data-sjs]::text').getall()
-        # find datasets that contain threads data
-        for hidden_dataset in hidden_datasets:
-            # skip loading datasets that clearly don't contain threads data
-            if '"ScheduledServerJS"' not in hidden_dataset:
-                continue
-            if "thread_items" not in hidden_dataset:
-                continue
-            data = json.loads(hidden_dataset)
-            # datasets are heavily nested, use nested_lookup to find 
-            # the thread_items key for thread data
-            thread_items = nested_lookup("thread_items", data)
-            if not thread_items:
-                continue
-            # use our jmespath parser to reduce the dataset to the most important fields
-            threads = [parse_thread(t) for thread in thread_items for t in thread]
-            return {
-                # the first parsed thread is the main post:
-                "thread": threads[0],
-                # other threads are replies:
-                "replies": threads[1:]
-            }
-        raise ValueError("could not find thread data in page")
+    Returns:
+        dict: Un dictionnaire contenant les données du thread, avec les clés "thread" pour le
+               message original et "reply" pour les réponses.
+    """
+
+    threads = []
+    for page_num in range(1, max_pages + 1):
+        with sync_playwright() as pw:
+            navigateur = pw.chromium.launch()
+            contexte = navigateur.new_context(viewport={"width": 1920, "height": 1080})
+            page = contexte.new_page()
+
+            page.goto(f"{url}?page={page_num}")
+            page.wait_for_selector("[data-pressable-container=true]")
+            selector = Selector(page.content())
+            datasets_caches = selector.css(
+                'script[type="application/json"][data-sjs]::text'
+            ).getall()
+
+            for dataset_cache in datasets_caches:
+                if '"ScheduledServerJS"' not in dataset_cache:
+                    continue
+                if "thread_items" not in dataset_cache:
+                    continue
+                donnee = json.loads(dataset_cache)
+
+                thread_items = nested_lookup("thread_items", donnee)
+                if not thread_items:
+                    continue
+                parsed_threads = [
+                    parse_thread(t) for thread in thread_items for t in thread
+                ]
+                threads.extend(parsed_threads)
+    return {
+        "thread": threads[0]["text"],
+        "reply": [reponse["text"] for reponse in threads[1:]],
+    }
+
+
+def nettoyer_donnees(thread_donnee):
+    """
+    Nettoie les données du thread en supprimant les doublons et les caractères indésirables dans les réponses.
+
+    Args:
+        thread_data (dict): Dictionnaire contenant les données du thread à nettoyer.
+
+    Returns:
+        dict: Dictionnaire contenant les données nettoyées du thread.
+    """
+
+    reponse_unique = []
+    for reponse in thread_donnee["reply"]:
+        if reponse not in reponse_unique:
+            reponse_unique.append(reponse)
+
+    reponse_unique_nettoyes = []
+    for reponse in reponse_unique:
+        reponse_nettoye = re.sub(r"[^\x00-\x7F]+", "", reponse)
+        reponse_unique_nettoyes.append(reponse_nettoye)
+
+    thread_donnee["reply"] = reponse_unique_nettoyes
+    return thread_donnee
 
 
 if __name__ == "__main__":
-    print(scrape_thread("https://www.threads.net/"))
+    thread_donnee = scrape_thread("https://www.threads.net/t/CuVdfsNtmvh/", 10)
+    thread_donnee = nettoyer_donnees(thread_donnee)
+
+    print("Thread :", thread_donnee["thread"])
+    print("Réponses :", thread_donnee["reply"])
