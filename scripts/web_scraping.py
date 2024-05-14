@@ -1,13 +1,9 @@
 import json
-import re
-import emoji
-
 from typing import Dict
-
-import jmespath
 from parsel import Selector
 from nested_lookup import nested_lookup
 from playwright.sync_api import sync_playwright
+import jmespath
 
 def parse_thread(donnee: Dict) -> Dict:
     """
@@ -30,15 +26,7 @@ def parse_thread(donnee: Dict) -> Dict:
 
 def scrape_thread(url: str, max_pages: int) -> dict:
     """
-    Scrape les données d'un thread Threads à partir de son URL et jusqu'à un nombre maximal de pages.
-
-    Args:
-        url (str): L'URL du thread Threads à scraper.
-        max_pages (int): Le nombre maximal de pages à scraper pour ce thread.
-
-    Returns:
-        dict: Un dictionnaire contenant les données du thread, avec les clés "thread" pour le
-               message original et "reply" pour les réponses.
+    Scrape les posts et les réponses sur Threads à partir d'une URL.
     """
 
     threads = []
@@ -69,44 +57,3 @@ def scrape_thread(url: str, max_pages: int) -> dict:
         "thread": threads[0]["text"],
         "reply": [reponse["text"] for reponse in threads[1:]],
     }
-
-def nettoyer_donnees(thread_donnee):
-    """
-    Nettoie les données du thread en supprimant les doublons et les caractères indésirables dans les réponses.
-
-    Args:
-        thread_data (dict): Dictionnaire contenant les données du thread à nettoyer.
-
-    Returns:
-        dict: Dictionnaire contenant les données nettoyées du thread.
-    """
-
-    reponse_unique = []
-    for reponse in thread_donnee["reply"]:
-        if isinstance(reponse, dict):
-            reponse_texte = reponse.get("text", "")
-        elif isinstance(reponse, str):
-            reponse_texte = reponse
-        else:
-            print("Type d'élément non géré dans la liste 'reply':", type(reponse))
-            continue
-
-        if reponse_texte not in reponse_unique:
-            reponse_unique.append(reponse_texte)
-
-    reponse_unique_nettoyes = []
-    for reponse in reponse_unique:
-        reponse_nettoye = re.sub(r'[^\x00-\x7F]+', '', reponse)
-        reponse_unique_nettoyes.append(reponse_nettoye)
-
-    thread_donnee["reply"] = reponse_unique_nettoyes
-
-    return thread_donnee
-
-
-if __name__ == "__main__":
-    thread_donnee = scrape_thread("https://www.threads.net/t/CuVdfsNtmvh/", 5)
-    thread_donnee = nettoyer_donnees(thread_donnee)
-
-    print("Thread :", thread_donnee["thread"])
-    print("Réponses :", thread_donnee["reply"])
