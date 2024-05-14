@@ -38,7 +38,7 @@ On voit bien qu'il y a le message sous forme de chaînes de caractères et la cl
 ### À moi de jouer ! 
 Je vais récolter les données en français ! 
 
-Threads n’a pas d’API publique, donc j’ai décidé d’utiliser `ScrapFly` pour parser le site. Comme je ne pouvais pas utiliser `playwright` dans mon Jupyter Notebook, je suis passé sur un fichier python classique. 
+Threads n’a pas d’API publique, donc j’ai décidé d’utiliser `PlayWright` pour parser le site. Comme je ne pouvais pas l'utiliser dans mon Jupyter Notebook, je suis passée sur un fichier python classique. 
 
 Un problème s’est alors posé devant moi : quels commentaires je prends ? Comme je ne peux pas parser tout le site sans le faire planter ou me faire bannir, je dois fixer des limites. J’ai le choix de prendre le dernier username et parser son profil entier (peut-être fixer une limite de commentaires ?) ou de parser un commentaire et d’obtenir toutes les réponses qu’il a eu. 
 
@@ -52,4 +52,5 @@ Objectifs pour la prochaine fois :
 - [ ] récupérer le dernier commentaire posté
 - [ ] augmenter la portée aux derniers 25 commentaires postés max
 - [ ] récupérer toutes les réponses de ces commentaires
-- [ ] commencer le nettoyage des données
+- [X] commencer le nettoyage des données
+- [ ] vérifier si tout le texte est bien nettoyé
