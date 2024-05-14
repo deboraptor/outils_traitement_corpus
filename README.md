@@ -35,12 +35,12 @@ Voici un exemple de comment ça fonctionne.
 
 On voit bien qu'il y a le message sous forme de chaînes de caractères et la classification de l'émotion sous forme de chiffre de 0 à 5 comme on l'avait vu au-dessus. 
 
-### À moi de jouer ! 
+## À moi de jouer ! 
 Je vais récolter les données en français ! 
 
 Threads n’a pas d’API publique, donc j’ai décidé d’utiliser `PlayWright` pour parser le site. Comme je ne pouvais pas l'utiliser dans mon Jupyter Notebook, je suis passée sur un fichier python classique. 
 
-Un problème s’est alors posé devant moi : quels commentaires je prends ? Comme je ne peux pas parser tout le site sans le faire planter ou me faire bannir, je dois fixer des limites. J’ai le choix de prendre le dernier username et parser son profil entier (peut-être fixer une limite de commentaires ?) ou de parser un commentaire et d’obtenir toutes les réponses qu’il a eu. 
+Un problème s’est alors posé devant moi : quels commentaires je prends ? Comme je ne peux pas parser tout le site sans le faire planter ou me faire bannir, je dois fixer des limites.
 
 ### Idées 
 J'aimerais bien le faire avec plusieurs classes de différents acteurs ou chanteurs, comme ça on pourrait voir lesquels sont les plus appréciés ou pas.
@@ -53,5 +53,12 @@ Objectifs pour la prochaine fois :
 - [ ] récupérer toutes les réponses de ces commentaires
 
 ### Nettoyage des données
-- [X] commencer le nettoyage des données
-- [ ] vérifier si tout le texte est bien nettoyé
+Pour pouvoir exploiter les données correctement, il va falloir commencer le nettoyage des données. En lançant le script qui récupère les threads, je vais tout d'abord repérer les choses qu'il va falloir nettoyer ci-dessous :
+- [ ] tout mettre en minuscule
+- [ ] supprimer toute forme de ponctuation
+- [ ] enlever les URLs
+- [ ] vérifier la langue (prendre que le français)
+- [ ] enlever les hastags (mais garder le texte ?)
+- [ ] supprimer les \n 
+- [ ] corriger les chaînes de caractères vides
+- [ ] enlever les mentions (qui commencent par un @)
