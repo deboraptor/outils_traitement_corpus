@@ -7,9 +7,10 @@ import re
 
 from web_scraping import scrape_thread
 
+
 def nettoyer_donnees(thread_donnee):
     """
-    Supprime les doublons et les émojis dans la liste des réponses.
+    Supprime les doublons, les émojis et les URLs dans la liste des réponses.
     """
 
     reponse_unique = []
@@ -22,21 +23,51 @@ def nettoyer_donnees(thread_donnee):
             print("Type d'élément non géré dans la liste 'reply':", type(reponse))
             continue
 
+        reponse_texte = supprimer_urls(reponse_texte)  
+        reponse_texte = supprimer_emojis(reponse_texte)  
+        reponse_texte = supprimer_retours_chariots(reponse_texte)
+        reponse_texte = supprimer_username(reponse_texte) 
+
         if reponse_texte not in reponse_unique:
             reponse_unique.append(reponse_texte)
 
-    reponse_unique_nettoyes = []
-    for reponse in reponse_unique:
-        reponse_nettoye = re.sub(r'[^\x00-\x7F]+', '', reponse)
-        reponse_unique_nettoyes.append(reponse_nettoye)
-
-    thread_donnee["reply"] = reponse_unique_nettoyes
-
+    thread_donnee["reply"] = reponse_unique
     return thread_donnee
 
 
+def supprimer_urls(texte):
+    """
+    Supprime les URLs d'une chaîne de caractères.
+    """
+
+    regex_url = r'https?://\S+|www\.\S+'
+    texte_sans_urls = re.sub(regex_url, '', texte)
+    return texte_sans_urls
+
+
+def supprimer_emojis(texte):
+    """
+    Supprime les émojis d'une chaîne de caractères.
+    """
+
+    texte_sans_emojis = re.sub(r'[^\x00-\x7F]+', '', texte)
+    return texte_sans_emojis
+
+
+def supprimer_retours_chariots(texte):
+    
+    texte_sans_retours_chariots = re.sub(r'\n', '', texte)
+    return texte_sans_retours_chariots
+
+
+def supprimer_username(texte):
+    
+    texte_sans_username = re.sub(r'@[^\s@]+\b', '', texte)
+    return texte_sans_username
+
+
 if __name__ == "__main__":
-    thread_donnee = scrape_thread("https://www.threads.net/t/CuVdfsNtmvh/", 5)
+    thread_donnee = scrape_thread("https://www.threads.net/", 25)
     thread_donnee = nettoyer_donnees(thread_donnee)
 
     print("Thread :", thread_donnee["thread"])
