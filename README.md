@@ -55,7 +55,7 @@ Objectifs pour la prochaine fois :
 ### Nettoyage des données
 Pour pouvoir exploiter les données correctement, il va falloir commencer le nettoyage des données. En lançant le script qui récupère les threads, je vais tout d'abord repérer les choses qu'il va falloir nettoyer ci-dessous :
 - [ ] tout mettre en minuscule
-- [ ] supprimer toute forme de ponctuation
+- [X] supprimer toute forme de ponctuation
 - [X] enlever les URLs
 - [ ] vérifier la langue (prendre que le français)
 - [X] enlever les hastags (mais garder le texte ? -> oui)
@@ -63,3 +63,4 @@ Pour pouvoir exploiter les données correctement, il va falloir commencer le net
 - [X] corriger les chaînes de caractères vides
 - [ ] corriger les chaînes sans mots (par exemple : "    ...     ")
 - [X] enlever les mentions (qui commencent par un @)
+- [ ] ne prendre que les phrases de 3 mots ou plus (pour que l'analyse soit plus juste)
