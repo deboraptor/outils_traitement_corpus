@@ -27,6 +27,7 @@ def nettoyer_donnees(thread_donnee):
         reponse_texte = supprimer_emojis(reponse_texte)  
         reponse_texte = supprimer_retours_chariots(reponse_texte)
         reponse_texte = supprimer_username(reponse_texte) 
+        reponse_texte = supprimer_hashtags(reponse_texte)
 
         if reponse_texte not in reponse_unique:
             reponse_unique.append(reponse_texte)
@@ -64,6 +65,13 @@ def supprimer_username(texte):
     
     texte_sans_username = re.sub(r'@[^\s@]+\b', '', texte)
     return texte_sans_username
+
+
+def supprimer_hashtags(texte):
+    
+    # je décide de garder le texte après qui peut être utile pour l'analyse
+    texte_sans_hashtags = re.sub(r'#', '', texte)
+    return texte_sans_hashtags
 
 
 if __name__ == "__main__":
