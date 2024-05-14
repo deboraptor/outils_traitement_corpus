@@ -28,6 +28,7 @@ def nettoyer_donnees(thread_donnee):
         reponse_texte = supprimer_retours_chariots(reponse_texte)
         reponse_texte = supprimer_username(reponse_texte) 
         reponse_texte = supprimer_hashtags(reponse_texte)
+        reponse_texte = supprimer_ponctuation(reponse_texte)
         reponse_texte = supprimer_chaine_vide(reponse_texte)
 
         if reponse_texte not in reponse_unique:
@@ -71,7 +72,7 @@ def supprimer_username(texte):
 def supprimer_hashtags(texte):
 
     # je décide de garder le texte après qui peut être utile pour l'analyse
-    texte_sans_hashtags = re.sub(r'#', '', texte)
+    texte_sans_hashtags = re.sub(r'#', ' ', texte)
     return texte_sans_hashtags
 
 
@@ -79,6 +80,11 @@ def supprimer_chaine_vide(texte):
     
     texte_sans_chaine_vide = re.sub(r'^\s*$', '', texte)
     return texte_sans_chaine_vide
+
+
+def supprimer_ponctuation(texte):
+    texte_sans_ponctuation = re.sub(r'[^\w\s]', '', texte)
+    return texte_sans_ponctuation
 
 
 if __name__ == "__main__":
