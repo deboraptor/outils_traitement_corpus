@@ -30,6 +30,10 @@ def nettoyer_donnees(thread_donnee):
         reponse_texte = supprimer_hashtags(reponse_texte)
         reponse_texte = supprimer_ponctuation(reponse_texte)
         reponse_texte = supprimer_chaine_vide(reponse_texte)
+        reponse_texte = supprimer_espaces(reponse_texte)
+
+        reponse_texte = reponse_texte.strip()
+        reponse_texte = reponse_texte.lower()
 
         if reponse_texte not in reponse_unique:
             reponse_unique.append(reponse_texte)
@@ -83,8 +87,13 @@ def supprimer_chaine_vide(texte):
 
 
 def supprimer_ponctuation(texte):
-    texte_sans_ponctuation = re.sub(r'[^\w\s]', '', texte)
+    texte_sans_ponctuation = re.sub(r'[^\w\s_]', '', texte)
     return texte_sans_ponctuation
+
+
+def supprimer_espaces(texte):
+    texte_sans_espaces = re.sub(r'\s+', ' ', texte)
+    return texte_sans_espaces
 
 
 if __name__ == "__main__":
