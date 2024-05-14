@@ -58,7 +58,7 @@ Pour pouvoir exploiter les données correctement, il va falloir commencer le net
 - [ ] supprimer toute forme de ponctuation
 - [X] enlever les URLs
 - [ ] vérifier la langue (prendre que le français)
-- [ ] enlever les hastags (mais garder le texte ?)
+- [X] enlever les hastags (mais garder le texte ? -> oui)
 - [X] supprimer les \n 
 - [ ] corriger les chaînes de caractères vides
 - [X] enlever les mentions (qui commencent par un @)
