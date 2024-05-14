@@ -60,5 +60,6 @@ Pour pouvoir exploiter les données correctement, il va falloir commencer le net
 - [ ] vérifier la langue (prendre que le français)
 - [X] enlever les hastags (mais garder le texte ? -> oui)
 - [X] supprimer les \n 
-- [ ] corriger les chaînes de caractères vides
+- [X] corriger les chaînes de caractères vides
+- [ ] corriger les chaînes sans mots (par exemple : "    ...     ")
 - [X] enlever les mentions (qui commencent par un @)
