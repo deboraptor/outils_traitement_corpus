@@ -1,12 +1,13 @@
 import json
 import re
-import jmespath
+import emoji
 
 from typing import Dict
+
+import jmespath
 from parsel import Selector
 from nested_lookup import nested_lookup
 from playwright.sync_api import sync_playwright
-
 
 def parse_thread(donnee: Dict) -> Dict:
     """
@@ -26,7 +27,6 @@ def parse_thread(donnee: Dict) -> Dict:
         donnee,
     )
     return resultat
-
 
 def scrape_thread(url: str, max_pages: int) -> dict:
     """
@@ -51,9 +51,7 @@ def scrape_thread(url: str, max_pages: int) -> dict:
             page.goto(f"{url}?page={page_num}")
             page.wait_for_selector("[data-pressable-container=true]")
             selector = Selector(page.content())
-            datasets_caches = selector.css(
-                'script[type="application/json"][data-sjs]::text'
-            ).getall()
+            datasets_caches = selector.css('script[type="application/json"][data-sjs]::text').getall()
 
             for dataset_cache in datasets_caches:
                 if '"ScheduledServerJS"' not in dataset_cache:
@@ -65,15 +63,12 @@ def scrape_thread(url: str, max_pages: int) -> dict:
                 thread_items = nested_lookup("thread_items", donnee)
                 if not thread_items:
                     continue
-                parsed_threads = [
-                    parse_thread(t) for thread in thread_items for t in thread
-                ]
+                parsed_threads = [parse_thread(t) for thread in thread_items for t in thread]
                 threads.extend(parsed_threads)
     return {
         "thread": threads[0]["text"],
         "reply": [reponse["text"] for reponse in threads[1:]],
     }
-
 
 def nettoyer_donnees(thread_donnee):
     """
@@ -88,20 +83,29 @@ def nettoyer_donnees(thread_donnee):
 
     reponse_unique = []
     for reponse in thread_donnee["reply"]:
-        if reponse not in reponse_unique:
-            reponse_unique.append(reponse)
+        if isinstance(reponse, dict):
+            reponse_texte = reponse.get("text", "")
+        elif isinstance(reponse, str):
+            reponse_texte = reponse
+        else:
+            print("Type d'élément non géré dans la liste 'reply':", type(reponse))
+            continue
+
+        if reponse_texte not in reponse_unique:
+            reponse_unique.append(reponse_texte)
 
     reponse_unique_nettoyes = []
     for reponse in reponse_unique:
-        reponse_nettoye = re.sub(r"[^\x00-\x7F]+", "", reponse)
+        reponse_nettoye = re.sub(r'[^\x00-\x7F]+', '', reponse)
         reponse_unique_nettoyes.append(reponse_nettoye)
 
     thread_donnee["reply"] = reponse_unique_nettoyes
+
     return thread_donnee
 
 
 if __name__ == "__main__":
-    thread_donnee = scrape_thread("https://www.threads.net/t/CuVdfsNtmvh/", 10)
+    thread_donnee = scrape_thread("https://www.threads.net/t/CuVdfsNtmvh/", 5)
     thread_donnee = nettoyer_donnees(thread_donnee)
 
     print("Thread :", thread_donnee["thread"])
