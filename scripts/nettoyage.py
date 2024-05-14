@@ -5,6 +5,8 @@ va les nettoyer pour préparer leur utilisation avec un modèle d'analyse de sen
 
 import re
 
+from langdetect import detect
+
 from web_scraping import scrape_thread
 
 
@@ -87,7 +89,7 @@ def supprimer_chaine_vide(texte):
 
 
 def supprimer_ponctuation(texte):
-    texte_sans_ponctuation = re.sub(r'[^\w\s_]', '', texte)
+    texte_sans_ponctuation = re.sub(r'[^\w\s_\D|]', '', texte)
     return texte_sans_ponctuation
 
 
@@ -97,8 +99,22 @@ def supprimer_espaces(texte):
 
 
 if __name__ == "__main__":
-    thread_donnee = scrape_thread("https://www.threads.net/", 25)
+    thread_donnee = scrape_thread("https://www.threads.net/?hl=fr", 25)
     thread_donnee = nettoyer_donnees(thread_donnee)
 
-    print("Thread :", thread_donnee["thread"])
-    print("Réponses :", thread_donnee["reply"])
+    reponses_nettoyees = thread_donnee["reply"]
+    reponses_francaises = []
+
+    for reponse in reponses_nettoyees:
+        if len(reponse.split()) <= 5:
+            continue
+        
+        try:
+            langue = detect(reponse)
+            print(reponse)
+            if langue == "fr":
+                reponses_francaises.append(reponse)
+        except Exception as e:
+            print(f"Erreur lors de la détection de la langue : {e}")
+
+    print("Réponses en français de plus de 5 mots :", reponses_francaises)
