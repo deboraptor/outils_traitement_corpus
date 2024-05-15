@@ -18,7 +18,6 @@ J'aimerais bien me lancer dans un projet d'analyse de sentiments car ça m'inté
 
 ![image](https://github.com/deboraptor/outils_traitement_corpus/assets/145542205/bc3a2483-1f69-4aad-8514-7444fda1e554)
 
-
 #### brouillon
 J'ai décidé de mettre sur le git le fichier de la dataset de _Kaggle_ parce que le fichier n'est pas si lourd que ça, et surtout parce que ce dépôt git est plus qu'un projet en cours, c'est aussi un dépôt sur lequel je veux revenir souvent et améliorer au fur et à mesure en apprenant de nouvelles choses plus tard. 
 
@@ -66,11 +65,6 @@ Un problème s’est alors posé devant moi : quels commentaires je prends ? Com
 J'aimerais bien le faire avec plusieurs classes de différents acteurs ou chanteurs, comme ça on pourrait voir lesquels sont les plus appréciés ou pas.
 
 Et pourquoi pas regarder chaque commentaire et comparer le sentiment "moyen" de chaque post en fonction du titre et en porter des conclusions grâce à l'analyse de sentiments (?)
-
-Objectifs pour la prochaine fois : 
-- [ ] récupérer le dernier commentaire posté
-- [ ] augmenter la portée aux derniers 25 commentaires postés max
-- [ ] récupérer toutes les réponses de ces commentaires
 
 ### Nettoyage des données
 Pour pouvoir exploiter les données correctement, il va falloir commencer le nettoyage des données. En lançant le script qui récupère les threads, je vais tout d'abord repérer les choses qu'il va falloir nettoyer ci-dessous :
