@@ -22,7 +22,7 @@ def nettoyer_donnees(thread_donnee):
         elif isinstance(reponse, str):
             reponse_texte = reponse
         else:
-            print("Type d'élément non géré dans la liste 'reply':", type(reponse))
+            # print("Type d'élément non géré dans la liste 'reply':", type(reponse))
             continue
 
         reponse_texte = supprimer_urls(reponse_texte)  
@@ -98,23 +98,15 @@ def supprimer_espaces(texte):
     return texte_sans_espaces
 
 
-if __name__ == "__main__":
-    thread_donnee = scrape_thread("https://www.threads.net/?hl=fr", 25)
-    thread_donnee = nettoyer_donnees(thread_donnee)
+# if __name__ == "__main__":
+#     thread_donnee = scrape_thread("https://www.threads.net/?hl=fr", 25)
+#     thread_donnee = nettoyer_donnees(thread_donnee)
 
-    reponses_nettoyees = thread_donnee["reply"]
-    reponses_francaises = []
+#     reponses_nettoyees = thread_donnee["reply"]
+#     commentaires = []
 
-    for reponse in reponses_nettoyees:
-        if len(reponse.split()) <= 5:
-            continue
-        
-        try:
-            langue = detect(reponse)
-            print(reponse)
-            if langue == "fr":
-                reponses_francaises.append(reponse)
-        except Exception as e:
-            print(f"Erreur lors de la détection de la langue : {e}")
+#     for reponse in reponses_nettoyees:
+#         if len(reponse.split()) <= 5:
+#             continue
 
-    print("Réponses en français de plus de 5 mots :", reponses_francaises)
+#     print("Réponses en français de plus de 5 mots : ", commentaires)
