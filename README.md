@@ -70,11 +70,14 @@ Objectifs pour la prochaine fois :
 Pour pouvoir exploiter les données correctement, il va falloir commencer le nettoyage des données. En lançant le script qui récupère les threads, je vais tout d'abord repérer les choses qu'il va falloir nettoyer ci-dessous :
 - [X] tout mettre en minuscule
 - [X] supprimer toute forme de ponctuation
+    + [ ] et les $ ?
+    + [ ] les nombres aussi ?
 - [X] enlever les URLs
+    + [ ] enlever aussi celles sans le https (instagram.com/p/c6-qrpgsm0h/)
 - [ ] vérifier la langue (prendre que le français)
 - [X] enlever les hastags (mais garder le texte ? -> oui)
 - [X] supprimer les \n 
 - [X] corriger les chaînes de caractères vides
-- [ ] corriger les chaînes sans mots (par exemple : "    ...     ")
+    + [ ] corriger les chaînes sans mots (par exemple : "    ...     ")
 - [X] enlever les mentions (qui commencent par un @)
-- [ ] ne prendre que les phrases de 3 mots ou plus (pour que l'analyse soit plus juste)
+- [X] ne prendre que les phrases de 3 mots ou plus (pour que l'analyse soit plus juste)
