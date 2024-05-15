@@ -1,17 +1,16 @@
 # Sommaire
-1. [Outils Traitement Corpus](#outils-traitement-corpus)
-   1.1. [Le projet que je veux réaliser](#le-projet-que-je-veux-réaliser)
-   1.2. [Le dataset que j'ai choisi](#le-dataset-que-jai-choisi)
-      1.2.1. [Comment ont été collectées les données ?](#comment-ont-été-collectées-les-données-)
-      1.2.2. [À quoi peut servir ce corpus ?](#à-quoi-peut-servir-ce-corpus-)
-      1.2.3. [À quel modèle a-t-il servi ?](#à-quel-modèle-a-t-il-servi-)
-      1.2.4. [Exemple](#exemple)
-   1.3. [À moi de jouer !](#à-moi-de-jouer-)
-      1.3.1. [Idées](#idées)
-      1.3.2. [Objectifs pour la prochaine fois](#objectifs-pour-la-prochaine-fois)
-   1.4. [Nettoyage des données](#nettoyage-des-données)
-      1.4.1. [Tâches de nettoyage](#tâches-de-nettoyage)
-
+* [Outils Traitement Corpus](#outils-traitement-corpus)
+	+ [Le projet que je veux réaliser](#le-projet-que-je-veux-réaliser)
+	+ [Le dataset que j'ai choisi](#le-dataset-que-jai-choisi)
+		- [Comment ont été collectées les données ?](#comment-ont-été-collectées-les-données-)
+		- [À quoi peut servir ce corpus ?](#à-quoi-peut-servir-ce-corpus-)
+		- [À quel modèle a-t-il servi ?](#à-quel-modèle-a-t-il-servi-)
+		- [Exemple](#exemple)
+	+ [À moi de jouer !](#à-moi-de-jouer-)
+		- [Idées](#idées)
+		- [Objectifs pour la prochaine fois](#objectifs-pour-la-prochaine-fois)
+	+ [Nettoyage des données](#nettoyage-des-données)
+		- [Tâches de nettoyage](#tâches-de-nettoyage)
 
 # Outils Traitement Corpus
 ## Le projet que je veux réaliser
