@@ -3,6 +3,7 @@ Script pour faire la mise en fichier tabulaire pour la suite.
 """
 
 import csv
+import random
 
 import pandas as pd
 
@@ -16,17 +17,21 @@ def fichier_tabulaire(commentaires):
     })
 
     df.insert(0, "", range(len(commentaires)))
-    df.to_csv("commentaires.csv", index=False)
+
+    df["label"] = df.apply(lambda row: random.randint(0, 5), axis=1)
+
+    return df
 
 
 def ecrire_fichier_csv(commentaires):
+    df = fichier_tabulaire(commentaires)
 
     with open("../data/clean/commentaires.csv", "w", newline="", encoding="utf-8") as f:
         ecrivain = csv.writer(f)
         ecrivain.writerow(["", "text", "label"])
 
-        for i, commentaire in enumerate(commentaires):
-            ecrivain.writerow([i, commentaire, ""])
+        for i, row in df.iterrows():
+            ecrivain.writerow([i, row["text"], row["label"]])
 
 
 if __name__ == "__main__":
@@ -45,3 +50,5 @@ if __name__ == "__main__":
 
     fichier_tabulaire(commentaires)
     ecrire_fichier_csv(commentaires)
+
+    # python3 tabulaire.py > ../data/raw/commentaires.txt
