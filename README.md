@@ -18,6 +18,12 @@ J'aimerais bien me lancer dans un projet d'analyse de sentiments car ça m'inté
 
 ![image](https://github.com/deboraptor/outils_traitement_corpus/assets/145542205/bc3a2483-1f69-4aad-8514-7444fda1e554)
 
+
+#### brouillon
+J'ai décidé de mettre sur le git le fichier de la dataset de _Kaggle_ parce que ce dépôt git est plus qu'un projet en cours, c'est aussi un dépôt sur lequel je veux revenir souvent et améliorer au fur et à mesure en apprenant de nouvelles choses plus tard. 
+
+J'ai donc des fichiers qui sont pour mon enrichissement personnel, des fichiers tests qui ne sont pas utiles pour le cours et j'ai décidé de les garder sur le git mais de les mettre dans mon .gitignore temporairement pour la correction.
+
 ### Le dataset que j'ai choisi
 J'ai trouvé un dataset sur _Kaggle_ qui correspond totalement à mon projet ! Le dataset se nomme <a href="https://www.kaggle.com/datasets/nelgiriyewithana/emotions">Emotions</a> et permet d'analyser de courts messages postés en ligne selon 6 types d'émotions :
 * tristesse (0)
@@ -81,3 +87,7 @@ Pour pouvoir exploiter les données correctement, il va falloir commencer le net
     + [ ] corriger les chaînes sans mots (par exemple : "    ...     ")
 - [X] enlever les mentions (qui commencent par un @)
 - [X] ne prendre que les phrases de 3 mots ou plus (pour que l'analyse soit plus juste)
+
+### Fichier tabulaire
+est-ce que je dois faire exactement comme la dataset et mettre toutes les phrases qui 
+commencent par "i [...]" ?
