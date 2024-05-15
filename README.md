@@ -1,3 +1,17 @@
+# Sommaire
+* [Outils Traitement Corpus](#outils-traitement-corpus)
+	+ [Le projet que je veux réaliser](#le-projet-que-je-veux-réaliser)
+	+ [Le dataset que j'ai choisi](#le-dataset-que-jai-choisi)
+		- [Comment ont été collectées les données ?](#comment-ont-été-collectées-les-données-)
+		- [À quoi peut servir ce corpus ?](#à-quoi-peut-servir-ce-corpus-)
+		- [À quel modèle a-t-il servi ?](#à-quel-modèle-a-t-il-servi-)
+		- [Exemple](#exemple)
+	+ [À moi de jouer !](#à-moi-de-jouer-)
+		- [Idées](#idées)
+		- [Objectifs pour la prochaine fois](#objectifs-pour-la-prochaine-fois)
+	+ [Nettoyage des données](#nettoyage-des-données)
+		- [Tâches de nettoyage](#tâches-de-nettoyage)
+
 # Outils Traitement Corpus
 ## Le projet que je veux réaliser
 J'aimerais bien me lancer dans un projet d'analyse de sentiments car ça m'intéresse beaucoup et j'ai envie de comprendre mieux comment ça fonctionne. 
