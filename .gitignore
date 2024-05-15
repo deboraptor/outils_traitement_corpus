@@ -1,3 +1,4 @@
 web_scrap.ipynb
-data/**
 scripts/__pycache__/
+scripts/tests
+notes_cours/
