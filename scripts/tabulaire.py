@@ -2,10 +2,10 @@
 Script pour faire la mise en fichier tabulaire pour la suite.
 """
 
-import csv
-import random
-
 import pandas as pd
+
+import random
+import subprocess
 
 from nettoyage import nettoyer_donnees, scrape_thread
 
@@ -22,20 +22,16 @@ def fichier_tabulaire(commentaires):
 
     return df
 
-
 def ecrire_fichier_csv(commentaires):
     df = fichier_tabulaire(commentaires)
 
-    with open("../data/clean/commentaires.csv", "w", newline="", encoding="utf-8") as f:
-        ecrivain = csv.writer(f)
-        ecrivain.writerow(["", "text", "label"])
+    df.to_csv("../data/clean/commentaires.csv", index=False)
 
-        for i, row in df.iterrows():
-            ecrivain.writerow([i, row["text"], row["label"]])
-
+    # with open("../data/raw/commentaires.txt", "w") as f:
+    #     subprocess.run(["python3", "tabulaire.py"], stdout=f)
 
 if __name__ == "__main__":
-    thread_donnee = scrape_thread("https://www.threads.net/?hl=fr", 30)
+    thread_donnee = scrape_thread("https://www.threads.net/?hl=fr", 25)
     thread_donnee = nettoyer_donnees(thread_donnee)
 
     reponses_nettoyees = thread_donnee["reply"]
@@ -50,5 +46,6 @@ if __name__ == "__main__":
 
     fichier_tabulaire(commentaires)
     ecrire_fichier_csv(commentaires)
+
 
     # python3 tabulaire.py > ../data/raw/commentaires.txt
