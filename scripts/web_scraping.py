@@ -28,7 +28,6 @@ def parse_thread(donnee: Dict) -> Dict:
     Returns :
         Dict : dictionnaire contenant le texte du post Thread.
     """
-
     resultat = jmespath.search(
         """{
         text: post.caption.text
@@ -58,7 +57,7 @@ def scrape_thread(url: str, max_pages: int) -> dict:
             navigateur = pw.chromium.launch()
             contexte = navigateur.new_context(viewport={"width": 1920, "height": 1080})
             page = contexte.new_page()
-            page.set_default_timeout(60000)
+            page.set_default_timeout(120000)  # Augmenter le timeout à 120 secondes
 
             with tqdm(total=max_pages, desc="Scraping en cours ☻", colour="magenta") as pbar:
                 for page_num in range(1, max_pages + 1):
