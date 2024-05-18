@@ -1,6 +1,6 @@
 """
 Ce script va prendre les données récoltées dans le script web_scraping.py et 
-va les nettoyer pour préparer leur utilisation avec un modèle d'analyse de sentiments.
+va les nettoyer pour préparer leur utilisation avec un modèle d"analyse de sentiments.
 """
 
 import re
@@ -22,7 +22,7 @@ def nettoyer_donnees(thread_donnee):
         elif isinstance(reponse, str):
             reponse_texte = reponse
         else:
-            # print("Type d'élément non géré dans la liste 'reply':", type(reponse))
+            # print("Type d'élément non géré dans la liste "reply":", type(reponse))
             continue
 
         reponse_texte = supprimer_urls(reponse_texte)  
@@ -33,6 +33,7 @@ def nettoyer_donnees(thread_donnee):
         reponse_texte = supprimer_ponctuation(reponse_texte)
         reponse_texte = supprimer_chaine_vide(reponse_texte)
         reponse_texte = supprimer_espaces(reponse_texte)
+        reponse_texte = supprimer_caractere_speciaux(reponse_texte)
 
         reponse_texte = reponse_texte.strip()
         reponse_texte = reponse_texte.lower()
@@ -49,53 +50,57 @@ def supprimer_urls(texte):
     Supprime les URLs d'une chaîne de caractères.
     """
 
-    regex_url = r'https?://\S+|www\.\S+'
-    texte_sans_urls = re.sub(regex_url, '', texte)
+    regex_url = r"https?://\S+|www\.\S+"
+    texte_sans_urls = re.sub(regex_url, "", texte)
     return texte_sans_urls
 
 
 def supprimer_emojis(texte):
     """
-    Supprime les émojis d'une chaîne de caractères.
+    Supprime les émojis d"une chaîne de caractères.
     """
 
-    texte_sans_emojis = re.sub(r'[^\x00-\x7F]+', '', texte)
+    texte_sans_emojis = re.sub(r"[^\x00-\x7F]+", "", texte)
     return texte_sans_emojis
 
 
 def supprimer_retours_chariots(texte):
     
-    texte_sans_retours_chariots = re.sub(r'\n', '', texte)
+    texte_sans_retours_chariots = re.sub(r"\n", "", texte)
     return texte_sans_retours_chariots
 
 
 def supprimer_username(texte):
     
-    texte_sans_username = re.sub(r'@[^\s@]+\b', '', texte)
+    texte_sans_username = re.sub(r"@[^\s@]+\b", "", texte)
     return texte_sans_username
 
 
 def supprimer_hashtags(texte):
 
     # je décide de garder le texte après qui peut être utile pour l'analyse
-    texte_sans_hashtags = re.sub(r'#', ' ', texte)
+    texte_sans_hashtags = re.sub(r"#", " ", texte)
     return texte_sans_hashtags
 
 
 def supprimer_chaine_vide(texte):
     
-    texte_sans_chaine_vide = re.sub(r'^\s*$', '', texte)
+    texte_sans_chaine_vide = re.sub(r"^\s*$", "", texte)
     return texte_sans_chaine_vide
 
 
 def supprimer_ponctuation(texte):
-    texte_sans_ponctuation = re.sub(r'[^\w\s_\D|]', '', texte)
+    texte_sans_ponctuation = re.sub(r"[^\w\s_\D|]", "", texte)
     return texte_sans_ponctuation
 
 
 def supprimer_espaces(texte):
-    texte_sans_espaces = re.sub(r'\s+', ' ', texte)
+    texte_sans_espaces = re.sub(r"\s+", " ", texte)
     return texte_sans_espaces
+
+def supprimer_caractere_speciaux(texte):
+    texte_sans_caractere_speciaux = re.sub(r"[^\w\s]", "", texte)
+    return texte_sans_caractere_speciaux
 
 
 # if __name__ == "__main__":
