@@ -4,11 +4,12 @@
 {{ card_data }}
 ---
 
-# Dataset Card for {{ pretty_name | default("Dataset Name", true) }}
+# Dataset Card for Emotions Dataset
 
 <!-- Provide a quick summary of the dataset. -->
 
-{{ dataset_summary | default("", true) }}
+Ce dataset permet d'analyser de courts messages postés en ligne selon 6 types 
+d'émotions : tristesse, joie, amour, colère, peur, et surprise.
 
 ## Dataset Details
 
@@ -16,13 +17,15 @@
 
 <!-- Provide a longer summary of what this dataset is. -->
 
-{{ dataset_description | default("", true) }}
+Le dataset Emotions est un ensemble de données collectées sur Twitter, comprenant 416 
+808 phrases au total, chacune ayant la forme "I [VERB] [..]". Les émotions sont 
+classées de 0 à 5 selon l'émotion primaire qui ressort du message.
 
 - **Curated by:** VAN-DEN-ZANDE Débora
 - **Shared by:** VAN-DEN-ZANDE Débora
-- **Language(s) (NLP):** ???
+- **Language(s) (NLP):** Anglais
 
-### Dataset Sources [optional]
+### Dataset Sources
 
 <!-- Provide the basic links for the dataset. -->
 
@@ -32,10 +35,19 @@
 
 <!-- Address questions around how the dataset is intended to be used. -->
 
+Ce dataset est principalement utilisé pour :
+- Analyse de sentiment
+- Classification des émotions
+- Analyse textuelle
+
 ## Dataset Structure
 
-<!-- This section provides a description of the dataset fields, and additional information about the dataset structure such as criteria used to create the splits, relationships between data points, etc. -->
+<!-- This section provides a description of the dataset fields, and additional 
+information about the dataset structure such as criteria used to create the splits, 
+relationships between data points, etc. -->
 
+Le dataset comprend des messages sous forme de chaînes de caractères et la 
+classification de l'émotion sous forme de chiffres de 0 à 5.
 
 ## Dataset Creation
 
@@ -43,48 +55,66 @@
 
 <!-- Motivation for the creation of this dataset. -->
 
+La création de ce dataset vise à fournir un ensemble de données riches et diversifiés 
+pour l'analyse des émotions dans les messages courts, facilitant ainsi les recherches 
+et développements dans le domaine de l'analyse des sentiments.
+
 ### Source Data
 
-<!-- This section describes the source data (e.g. news text and headlines, social media posts, translated sentences, ...). -->
+<!-- This section describes the source data (e.g. news text and headlines, social 
+media posts, translated sentences, ...). -->
 
 #### Data Collection and Processing
 
-<!-- This section describes the data collection and processing process such as data selection criteria, filtering and normalization methods, tools and libraries used, etc. -->
+<!-- This section describes the data collection and processing process such as data 
+selection criteria, filtering and normalization methods, tools and libraries used, etc. -->
 
+Les données ont été collectées sur Treads, un réseau social créé par Meta. Les 
+messages ont été filtrés et classifiés selon leur émotion principale par un modèle
+fine-tuné de DistilCamemBERT.
 
 #### Who are the source data producers?
 
-<!-- This section describes the people or systems who originally created the data. It should also include self-reported demographic or identity information for the source data creators if this information is available. -->
+<!-- This section describes the people or systems who originally created the data. 
+It should also include self-reported demographic or identity information for the source data creators if this information is available. -->
 
-Threads by Meta 
+Les données ont été produites par les utilisateurs de Threads, en publiant des 
+messages courts sur la plateforme.
 
-### Annotations [optional]
+### Annotations
 
-<!-- If the dataset contains annotations which are not part of the initial data collection, use this section to describe them. -->
+<!-- If the dataset contains annotations which are not part of the initial data 
+collection, use this section to describe them. -->
 
 #### Annotation process
 
-<!-- This section describes the annotation process such as annotation tools used in the process, the amount of data annotated, annotation guidelines provided to the annotators, interannotator statistics, annotation validation, etc. -->
+<!-- This section describes the annotation process such as annotation tools used in 
+the process, the amount of data annotated, annotation guidelines provided to the annotators, interannotator statistics, annotation validation, etc. -->
 
+Les annotations sont basées sur les émotions principales des messages, classifiées de 
+0 à 5 : 
+* tristesse (0)
+* joie (1)
+* amour (2)
+* colère (3)
+* peur (4)
+* surprise (5)
 
 #### Who are the annotators?
 
 <!-- This section describes the people or systems who created the annotations. -->
 
+Les annotations ont été effectuées automatiquement via des outils de traitement de 
+langage naturel.
 
 #### Personal and Sensitive Information
 
-<!-- State whether the dataset contains data that might be considered personal, sensitive, or private (e.g., data that reveals addresses, uniquely identifiable names or aliases, racial or ethnic origins, sexual orientations, religious beliefs, political opinions, financial or health data, etc.). If efforts were made to anonymize the data, describe the anonymization process. -->
+<!-- State whether the dataset contains data that might be considered personal, 
+sensitive, or private (e.g., data that reveals addresses, uniquely identifiable names or aliases, racial or ethnic origins, sexual orientations, religious beliefs, political opinions, financial or health data, etc.). If efforts were made to anonymize the data, describe the anonymization process. -->
 
+Le dataset ne contient pas d'informations personnelles, sensibles ou privées. 
+Les messages ont été anonymisés pour retirer toute information identifiable.
 
-## More Information [optional]
+## Dataset Card Authors
 
-[More Information Needed]
-
-## Dataset Card Authors [optional]
-
-[More Information Needed]
-
-## Dataset Card Contact
-
-[More Information Needed]
+VAN-DEN-ZANDE Débora
