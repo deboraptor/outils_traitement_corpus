@@ -1,0 +1,13 @@
+pandas
+nltk
+transformers
+langdetect
+jmespath
+tqdm
+parsel
+nested-lookup
+playwright
+matplotlib
+numpy
+seaborn
+scipy
