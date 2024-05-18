@@ -1,20 +1,24 @@
 """
-Ce script va prendre les données récoltées dans le script web_scraping.py et 
-va les nettoyer pour préparer leur utilisation avec un modèle d"analyse de sentiments.
+Ce script va prendre les données récoltées dans le script web_scraping.py et va les 
+nettoyer pour préparer leur utilisation avec un modèle d"analyse de sentiments.
 """
 
 import re
-
-from langdetect import detect
+from langdetect import detect # va permettre de filtrer les langues pour ne garder que l'anglais
 
 from web_scraping import scrape_thread
 
 
 def nettoyer_donnees(thread_donnee):
     """
-    Supprime les doublons, les émojis et les URLs dans la liste des réponses.
-    """
+    Nettoie les données.
+    
+    Args : 
+        thread_donnee :
 
+    Returns :
+        thread_donnee : renvoie les mêmes données mais nettoyées.
+    """
     reponse_unique = []
     for reponse in thread_donnee["reply"]:
         if isinstance(reponse, dict):
@@ -49,7 +53,6 @@ def supprimer_urls(texte):
     """
     Supprime les URLs d'une chaîne de caractères.
     """
-
     regex_url = r"https?://\S+|www\.\S+"
     texte_sans_urls = re.sub(regex_url, "", texte)
     return texte_sans_urls
@@ -57,61 +60,64 @@ def supprimer_urls(texte):
 
 def supprimer_emojis(texte):
     """
-    Supprime les émojis d"une chaîne de caractères.
+    Supprime les émojis d'une chaîne de caractères.
     """
-
     texte_sans_emojis = re.sub(r"[^\x00-\x7F]+", "", texte)
     return texte_sans_emojis
 
 
 def supprimer_retours_chariots(texte):
-    
+    """
+    Supprime les retours chariots d'une chaîne de caractères.
+    """    
     texte_sans_retours_chariots = re.sub(r"\n", "", texte)
     return texte_sans_retours_chariots
 
 
 def supprimer_username(texte):
-    
+    """
+    Supprime les noms des utilisateurs d'une chaîne de caractères.
+    """    
     texte_sans_username = re.sub(r"@[^\s@]+\b", "", texte)
     return texte_sans_username
 
 
 def supprimer_hashtags(texte):
-
-    # je décide de garder le texte après qui peut être utile pour l'analyse
+    """
+    Supprime les hastags d'une chaîne de caractères.
+    """
+    # j'ai décidé de garder le texte après qui peut être utile pour l'analyse
     texte_sans_hashtags = re.sub(r"#", " ", texte)
     return texte_sans_hashtags
 
 
 def supprimer_chaine_vide(texte):
-    
+    """
+    Supprime les chaînes vides d'une chaîne de caractères.
+    """    
     texte_sans_chaine_vide = re.sub(r"^\s*$", "", texte)
     return texte_sans_chaine_vide
 
 
 def supprimer_ponctuation(texte):
+    """
+    Supprime la ponctuation d'une chaîne de caractères.
+    """
     texte_sans_ponctuation = re.sub(r"[^\w\s_\D|]", "", texte)
     return texte_sans_ponctuation
 
 
 def supprimer_espaces(texte):
+    """
+    Supprime les espaces d'une chaîne de caractères.
+    """
     texte_sans_espaces = re.sub(r"\s+", " ", texte)
     return texte_sans_espaces
 
+
 def supprimer_caractere_speciaux(texte):
+    """
+    Supprime les caractères spéciaux d'une chaîne de caractères.
+    """
     texte_sans_caractere_speciaux = re.sub(r"[^\w\s]", "", texte)
     return texte_sans_caractere_speciaux
-
-
-# if __name__ == "__main__":
-#     thread_donnee = scrape_thread("https://www.threads.net/?hl=fr", 25)
-#     thread_donnee = nettoyer_donnees(thread_donnee)
-
-#     reponses_nettoyees = thread_donnee["reply"]
-#     commentaires = []
-
-#     for reponse in reponses_nettoyees:
-#         if len(reponse.split()) <= 5:
-#             continue
-
-#     print("Réponses en français de plus de 5 mots : ", commentaires)
