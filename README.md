@@ -86,27 +86,37 @@ Pour pouvoir exploiter les données correctement, il va falloir commencer le net
 Pour éviter les conflits de version, nous allons créer un environnement virtuel. 
 Pour créer un environnement virtuel, vous pouvez procéder comme suit : 
 
-```python3 -m venv nom_du_venv``` 
+```bash
+python3 -m venv nom_du_venv
+``` 
 
 Ensuite, il va vous falloir activer l’environnement. 
 
-```source nom_du_venv/bin/activate```
+```bash
+source nom_du_venv/bin/activate
+```
 
 Lorsque c’est fait, vous verrez entre parenthèse le nom de votre environnement tout à
 gauche de la ligne de commande. 
 
 N’oubliez pas de désactiver l’environnement lorsque vous avez terminé. 
 
-```deactivate```
+```bash
+deactivate
+```
 
 ### Installer les modules
 Avant de pouvoir lancer les scripts, il faut que vous ayez les bons modules installés dans votre environnement virtuel. Pour cela, il vous suffit simplement de lancer la commande suivante :
 
-```pip install -r requirements.txt```
+```bash
+pip install -r requirements.txt
+```
 
 ### Lancement des scripts
 Pour lancer le scraping du web, le nettoyage des données et la mise en format tabulaire, il suffit simplement de lancer le fichier tabulaire.py. Vous pouvez le faire de cette manière : 
 
-```python3 tabulaire.py```
+```bash
+python3 tabulaire.py
+```
 
 Grâce à la fonction main et à l'importation des fichiers, les trois scripts se lancent en même temps.
