@@ -1,9 +1,12 @@
 import json
+import jmespath
+
+from tqdm import tqdm # ajoute une bar de progression pour connaître le temps de chargement
 from typing import Dict
 from parsel import Selector
 from nested_lookup import nested_lookup
 from playwright.sync_api import sync_playwright
-import jmespath
+
 
 def parse_thread(donnee: Dict) -> Dict:
     """
@@ -28,32 +31,49 @@ def scrape_thread(url: str, max_pages: int) -> dict:
     """
     Scrape les posts et les réponses sur Threads à partir d'une URL.
     """
-
     threads = []
     for page_num in range(1, max_pages + 1):
         with sync_playwright() as pw:
             navigateur = pw.chromium.launch()
             contexte = navigateur.new_context(viewport={"width": 1920, "height": 1080})
             page = contexte.new_page()
+            page.set_default_timeout(60000)
 
-            page.goto(f"{url}?page={page_num}")
-            page.wait_for_selector("[data-pressable-container=true]")
-            selector = Selector(page.content())
-            datasets_caches = selector.css('script[type="application/json"][data-sjs]::text').getall()
+            with tqdm(total=max_pages, desc="Scraping en cours ☻", colour="magenta") as pbar:
+                for page_num in range(1, max_pages + 1):
+                    try:
+                        page.goto(f"{url}?page={page_num}")
+                        page.wait_for_load_state("networkidle")
+                        page.wait_for_selector("[data-pressable-container=true]")
+                        selector = Selector(page.content())
+                        datasets_caches = selector.css('script[type="application/json"][data-sjs]::text').getall()
 
-            for dataset_cache in datasets_caches:
-                if '"ScheduledServerJS"' not in dataset_cache:
-                    continue
-                if "thread_items" not in dataset_cache:
-                    continue
-                donnee = json.loads(dataset_cache)
+                        for dataset_cache in datasets_caches:
+                            if '"ScheduledServerJS"' not in dataset_cache:
+                                continue
+                            if "thread_items" not in dataset_cache:
+                                continue
+                            donnee = json.loads(dataset_cache)
 
-                thread_items = nested_lookup("thread_items", donnee)
-                if not thread_items:
-                    continue
-                parsed_threads = [parse_thread(t) for thread in thread_items for t in thread]
-                threads.extend(parsed_threads)
-    return {
-        "thread": threads[0]["text"],
-        "reply": [reponse["text"] for reponse in threads[1:]],
-    }
+                            thread_items = nested_lookup("thread_items", donnee)
+                            if not thread_items:
+                                continue
+                            parsed_threads = [parse_thread(t) for thread in thread_items for t in thread]
+                            threads.extend(parsed_threads)
+
+                        pbar.update(1)  
+
+                    except Exception as e:
+                        print(f"Erreur: {e}")
+            navigateur.close()
+
+    if threads:
+        return {
+            "thread": threads[0]["text"],
+            "reply": [reponse["text"] for reponse in threads[1:]],
+        }
+    else:
+        return {
+            "thread": "",
+            "reply": []
+        }
