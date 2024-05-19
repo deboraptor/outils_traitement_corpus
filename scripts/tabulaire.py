@@ -111,6 +111,6 @@ if __name__ == "__main__":
     print("Réponses de plus de 5 mots : ", commentaires)
     print("Taille du corpus : ", len(commentaires), " commentaires.")
 
-    output_file = "../data/clean/commentaires.csv"
+    output_file = "../data/commentaires.csv"
     ecrire_fichier_csv(commentaires, output_file)
     print("Écriture dans le fichier CSV terminée")
