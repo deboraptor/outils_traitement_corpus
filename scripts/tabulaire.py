@@ -1,8 +1,13 @@
 """
 Script pour faire la mise en fichier tabulaire pour la suite.
+
+Ce script permet de scraper des posts et réponses sur Threads, de les nettoyer et de 
+les organiser dans un fichier CSV tabulaire. Les étapes principales incluent le scraping 
+des données, le nettoyage des données, le traitement des textes, la classification des 
+émotions et la sauvegarde des données nettoyées dans un fichier CSV.
 """
+
 import pandas as pd
-import subprocess
 import nltk
 
 from transformers import pipeline
@@ -34,7 +39,17 @@ label_mapping = {
 
 
 def traiter_texte(texte):
-    """Effectue la lemmatization et enlève les stop words du texte."""
+    """
+    Effectue la lemmatization et enlève les stop words du texte.
+
+    Args
+    ----
+        texte (str) : Le texte à traiter.
+
+    Returns
+    -------
+        str : Le texte traité sans stop words.
+    """
     mots = word_tokenize(texte)
     lemmatizer = WordNetLemmatizer()
     mots_lemmatises = [lemmatizer.lemmatize(mot) for mot in mots]
@@ -45,6 +60,17 @@ def traiter_texte(texte):
 
 
 def fichier_tabulaire(commentaires):
+    """
+    Crée un DataFrame tabulaire à partir des commentaires avec leurs labels d'émotion.
+
+    Args
+    ----
+        commentaires (list) : Liste de commentaires à traiter.
+
+    Returns
+    -------
+        pd.DataFrame : DataFrame contenant les commentaires et leurs labels d'émotion.
+    """
     df = pd.DataFrame({"text": commentaires, "label": [""] * len(commentaires)})
 
     df.insert(0, "", range(len(commentaires)))
@@ -55,6 +81,14 @@ def fichier_tabulaire(commentaires):
 
 
 def ecrire_fichier_csv(commentaires, output_file):
+    """
+    Écrit les commentaires et leurs labels dans un fichier CSV.
+
+    Args
+    ----
+        commentaires (list) : Liste de commentaires à écrire dans le fichier.
+        output_file (str) : Chemin du fichier CSV de sortie.
+    """
     df = fichier_tabulaire(commentaires)
     print("Écriture des données dans le fichier CSV")
     with open(output_file, "a", newline="", encoding="utf-8") as f:
@@ -80,5 +114,3 @@ if __name__ == "__main__":
     output_file = "../data/clean/commentaires.csv"
     ecrire_fichier_csv(commentaires, output_file)
     print("Écriture dans le fichier CSV terminée")
-
-    # python3 tabulaire.py > ../data/raw/commentaires.txt
