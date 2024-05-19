@@ -11,8 +11,8 @@
     - [Nettoyage des données](#nettoyage-des-données)
     - [Transformers DistilCamemBERT](#transformers-distilcamembert)
   + [Visualisations et Statistiques](#visualisations-et-statistiques)
-    - [Distribution des Longueurs des Commentaires](#distribution-des-longueurs-des-commentaires)
-    - [Répartition des Sentiments](#répartition-des-sentiments)
+    - [Distribution des longueurs des commentaires](#distribution-des-longueurs-des-commentaires)
+    - [Répartition des sentiments](#répartition-des-sentiments)
     - [Loi de Zipf](#loi-de-zipf)
   + [Mes scripts](#mes-scripts)
     - [Lancement d'un environnement virtuel](#lancement-dun-environnement-virtuel)
@@ -90,10 +90,10 @@ Pour pouvoir exploiter les données correctement, il va falloir commencer le net
 J'ai utilisé le modèle DistilCamemBERT pour analyser automatiquement les sentiments des données scrappées, car je ne pouvais pas le faire directement via le scraping. Bien que le modèle puisse ne pas être entièrement fiable, surtout étant donné qu'il a été entraîné sur des données en français, l'annotation manuelle pour évaluer sa performance aurait été trop longue en raison de la grande quantité de données. Comme ici la qualité des données n'est pas le plus important, je suis restée sur cette décision. 
 
 ## Visualisations et Statistiques
-### Distribution des Longueurs des Commentaires
+### Distribution des longueurs des commentaires
 J'ai analysé la distribution des longueurs des commentaires pour voir si elle suit une distribution particulière et pour mieux comprendre la répartition des longueurs.
 
-### Répartition des Sentiments
+### Répartition des sentiments
 J'ai visualisé la répartition des différentes émotions dans les commentaires pour avoir une idée de la fréquence de chaque émotion dans le dataset.
 
 ### Loi de Zipf
