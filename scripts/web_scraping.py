@@ -2,7 +2,7 @@
 Ce script permet d'automatiser l'extraction de posts et de réponses sur le site 
 Threads, de les filtrer et de les organiser.
 
-Il éxecute la fonction scrape_thread() dans le main du script tabulaire.py.
+Il execute la fonction scrape_thread() dans le main du script tabulaire.py.
 """
 
 import json
@@ -35,6 +35,7 @@ def parse_thread(donnee: Dict) -> Dict:
         donnee,
     )
     return resultat
+
 
 def scrape_thread(url: str, max_pages: int) -> dict:
     """
