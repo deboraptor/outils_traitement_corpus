@@ -9,6 +9,11 @@
   + [À moi de jouer !](#à-moi-de-jouer)
     - [Extraction des données](#extraction-des-données)
     - [Nettoyage des données](#nettoyage-des-données)
+    - [Transformers DistilCamemBERT](#transformers-distilcamembert)
+  + [Visualisations et Statistiques](#visualisations-et-statistiques)
+    - [Distribution des Longueurs des Commentaires](#distribution-des-longueurs-des-commentaires)
+    - [Répartition des Sentiments](#répartition-des-sentiments)
+    - [Loi de Zipf](#loi-de-zipf)
   + [Mes scripts](#mes-scripts)
     - [Lancement d'un environnement virtuel](#lancement-dun-environnement-virtuel)
     - [Installer les modules](#installer-les-modules)
@@ -20,7 +25,7 @@ J'aimerais bien me lancer dans un projet d'analyse de sentiments car ça m'inté
 
 ![image](https://github.com/deboraptor/outils_traitement_corpus/assets/145542205/bc3a2483-1f69-4aad-8514-7444fda1e554)
 
-#### brouillon
+### Gestion du dépôt git
 J'ai décidé de mettre sur le git le fichier de la dataset de _Kaggle_ parce que ce dépôt git est plus qu'un projet en cours, c'est aussi un dépôt sur lequel je veux revenir souvent et améliorer au fur et à mesure en apprenant de nouvelles choses plus tard. 
 
 J'ai donc des fichiers qui sont pour mon enrichissement personnel, des fichiers tests qui ne sont pas utiles pour le cours et j'ai décidé de les garder sur le git mais de les mettre dans mon .gitignore temporairement pour la correction.
@@ -81,6 +86,19 @@ Pour pouvoir exploiter les données correctement, il va falloir commencer le net
 - [X] enlever les mentions (qui commencent par un @)
 - [X] ne prendre que les phrases de 3 mots ou plus (pour que l'analyse soit plus juste)
 
+### Transformers DistilCamemBERT
+J'ai utilisé le modèle DistilCamemBERT pour analyser automatiquement les sentiments des données scrappées, car je ne pouvais pas le faire directement via le scraping. Bien que le modèle puisse ne pas être entièrement fiable, surtout étant donné qu'il a été entraîné sur des données en français, l'annotation manuelle pour évaluer sa performance aurait été trop longue en raison de la grande quantité de données. Comme ici la qualité des données n'est pas le plus important, je suis restée sur cette décision. 
+
+## Visualisations et Statistiques
+### Distribution des Longueurs des Commentaires
+J'ai analysé la distribution des longueurs des commentaires pour voir si elle suit une distribution particulière et pour mieux comprendre la répartition des longueurs.
+
+### Répartition des Sentiments
+J'ai visualisé la répartition des différentes émotions dans les commentaires pour avoir une idée de la fréquence de chaque émotion dans le dataset.
+
+### Loi de Zipf
+J'ai appliqué la loi de Zipf aux données pour vérifier si les fréquences des mots suivent cette loi, ce qui est une caractéristique courante des langages naturels.
+
 ## Mes scripts
 ### Lancement d'un environnement virtuel
 Pour éviter les conflits de version, nous allons créer un environnement virtuel. 
@@ -113,10 +131,19 @@ pip install -r requirements.txt
 ```
 
 ### Lancement des scripts
-Pour lancer le scraping du web, le nettoyage des données et la mise en format tabulaire, il suffit simplement de lancer le fichier tabulaire.py. Vous pouvez le faire de cette manière : 
+Pour lancer le scraping du web, le nettoyage des données et sauvegarder les données dans un format tabulaire, il suffit simplement de lancer le fichier tabulaire.py. Vous pouvez le faire de cette manière : 
 
 ```bash
 python3 tabulaire.py
 ```
 
-Grâce à la fonction main et à l'importation des fichiers, les trois scripts se lancent en même temps.
+Grâce à la fonction main et à l'importation des fichiers, les trois scripts se lancent en même temps. Ce script permet de scraper des posts et réponses sur Threads, de les nettoyer et de les organiser dans un fichier CSV tabulaire. Il effectue les étapes suivantes :
+
+1. Scraping des données à partir du site Threads.
+2. Nettoyage des données pour enlever les URLs, émojis, retours chariots, noms 
+d'utilisateur, hashtags, ponctuation, chaînes vides, espaces en trop et caractères 
+spéciaux.
+3. Traitement des textes pour enlever les stop words et effectuer la lemmatisation.
+4. Classification des émotions dans les textes en utilisant un modèle de classification 
+des émotions.
+5. Sauvegarde des données nettoyées et classifiées dans un fichier CSV.
