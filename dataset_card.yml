@@ -5,21 +5,20 @@
 ---
 
 # Dataset Card for Emotions Dataset
-
-<!-- Provide a quick summary of the dataset. -->
-
-Ce dataset permet d'analyser de courts messages postés en ligne selon 6 types 
+Ce dataset permet d'analyser de courts messages postés sur Threads selon 6 types 
 d'émotions : tristesse, joie, amour, colère, peur, et surprise.
 
 ## Dataset Details
-
 ### Dataset Description
-
-<!-- Provide a longer summary of what this dataset is. -->
-
-Le dataset Emotions est un ensemble de données collectées sur Twitter, comprenant 416 
-808 phrases au total, chacune ayant la forme "I [VERB] [..]". Les émotions sont 
-classées de 0 à 5 selon l'émotion primaire qui ressort du message.
+Le dataset Emotions est un ensemble de données collectées sur Threads, un réseau 
+social créé par Meta. Il comprend des messages analysés et classifiés selon les 
+émotions suivantes : 
+* tristesse (0)
+* joie (1)
+* amour (2)
+* colère (3)
+* peur (4)
+* surprise (5)
 
 - **Curated by:** VAN-DEN-ZANDE Débora
 - **Shared by:** VAN-DEN-ZANDE Débora
@@ -93,12 +92,7 @@ the process, the amount of data annotated, annotation guidelines provided to the
 
 Les annotations sont basées sur les émotions principales des messages, classifiées de 
 0 à 5 : 
-* tristesse (0)
-* joie (1)
-* amour (2)
-* colère (3)
-* peur (4)
-* surprise (5)
+
 
 #### Who are the annotators?
 
