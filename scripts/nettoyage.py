@@ -13,8 +13,8 @@ from web_scraping import scrape_thread
 def nettoyer_donnees(thread_donnee):
     """
     Nettoie les données en appliquant plusieurs étapes de prétraitement.
-    
-    Args 
+
+    Args
     ----
         thread_donnee (dict) : dictionnaire contenant les données de threads et de réponses.
 
@@ -32,7 +32,11 @@ def nettoyer_donnees(thread_donnee):
             continue
 
         reponse_texte = appliquer_nettoyage(reponse_texte)
-        if reponse_texte and reponse_texte not in reponses_uniques and detect_langue(reponse_texte) == 'en':
+        if (
+            reponse_texte
+            and reponse_texte not in reponses_uniques
+            and detect_langue(reponse_texte) == "en"
+        ):
             reponses_uniques.append(reponse_texte)
 
     thread_donnee["reply"] = reponses_uniques
