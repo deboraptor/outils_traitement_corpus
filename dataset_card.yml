@@ -48,6 +48,14 @@ relationships between data points, etc. -->
 Le dataset comprend des messages sous forme de chaînes de caractères et la 
 classification de l'émotion sous forme de chiffres de 0 à 5.
 
+### Fichier CSV
+
+Le dataset est stocké dans un fichier CSV avec les caractéristiques suivantes :
+- **Taille du fichier:** 15,18 KB
+- **Nombre de lignes:** 112
+- **Nombre total de caractères:** 14 859
+- **Nombre de commentaires:** 111
+
 ## Dataset Creation
 
 ### Curation Rationale
@@ -92,7 +100,12 @@ the process, the amount of data annotated, annotation guidelines provided to the
 
 Les annotations sont basées sur les émotions principales des messages, classifiées de 
 0 à 5 : 
-
+* tristesse (0)
+* joie (1)
+* amour (2)
+* colère (3)
+* peur (4)
+* surprise (5)
 
 #### Who are the annotators?
 
